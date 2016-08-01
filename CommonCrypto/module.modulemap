@@ -1,0 +1,6 @@
+module CommonCrypto {
+  header "/usr/include/CommonCrypto/CommonCrypto.h"
+  export *
+}
+
+// From https://github.com/onmyway133/CommonCrypto.swift
