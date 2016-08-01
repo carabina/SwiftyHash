@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SwiftyHash"
-  s.version      = "0.0.1"
+  s.version      = "0.0.3"
   s.summary      = "A Swifty wrapper for CommonCrypto"
   s.homepage     = "https://github.com/anotheren/SwiftyHash"
   s.license      = { :type => "MIT" }
