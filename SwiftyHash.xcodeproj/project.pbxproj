@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A077D3ED1D4F3A8700A91587 /* SwiftyHash.h in Headers */ = {isa = PBXBuildFile; fileRef = A077D3EC1D4F3A8700A91587 /* SwiftyHash.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A077D3F81D4F3B1600A91587 /* FileHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = A077D3F61D4F3B1600A91587 /* FileHash.swift */; };
 		A077D3F91D4F3B1600A91587 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = A077D3F71D4F3B1600A91587 /* Hash.swift */; };
 		A077D3FF1D4F411000A91587 /* SwiftyHash.podspec in Resources */ = {isa = PBXBuildFile; fileRef = A077D3FE1D4F411000A91587 /* SwiftyHash.podspec */; };
+		A077D4011D4F440100A91587 /* SwiftyHash.h in Headers */ = {isa = PBXBuildFile; fileRef = A077D4001D4F440100A91587 /* SwiftyHash.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A077D3E91D4F3A8700A91587 /* SwiftyHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A077D3EC1D4F3A8700A91587 /* SwiftyHash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftyHash.h; sourceTree = "<group>"; };
 		A077D3EE1D4F3A8700A91587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A077D3F61D4F3B1600A91587 /* FileHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileHash.swift; path = Source/FileHash.swift; sourceTree = "<group>"; };
 		A077D3F71D4F3B1600A91587 /* Hash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hash.swift; path = Source/Hash.swift; sourceTree = "<group>"; };
 		A077D3FB1D4F3B4500A91587 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = CommonCrypto/module.modulemap; sourceTree = "<group>"; };
 		A077D3FE1D4F411000A91587 /* SwiftyHash.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftyHash.podspec; sourceTree = "<group>"; };
+		A077D4001D4F440100A91587 /* SwiftyHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftyHash.h; path = Source/SwiftyHash.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +56,6 @@
 			isa = PBXGroup;
 			children = (
 				A077D3F51D4F3B0200A91587 /* Source */,
-				A077D3EC1D4F3A8700A91587 /* SwiftyHash.h */,
 				A077D3EE1D4F3A8700A91587 /* Info.plist */,
 			);
 			path = SwiftyHash;
@@ -73,6 +72,7 @@
 		A077D3F51D4F3B0200A91587 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				A077D4001D4F440100A91587 /* SwiftyHash.h */,
 				A077D3F61D4F3B1600A91587 /* FileHash.swift */,
 				A077D3F71D4F3B1600A91587 /* Hash.swift */,
 			);
@@ -86,7 +86,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A077D3ED1D4F3A8700A91587 /* SwiftyHash.h in Headers */,
+				A077D4011D4F440100A91587 /* SwiftyHash.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
