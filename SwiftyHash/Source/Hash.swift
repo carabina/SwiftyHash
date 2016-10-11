@@ -11,21 +11,21 @@ import CommonCrypto
 
 /// Hash 算法
 public enum Hash {
-    case MD5
-    case SHA1
-    case SHA224
-    case SHA256
-    case SHA384
-    case SHA512
+    case md5
+    case sha1
+    case sha224
+    case sha256
+    case sha384
+    case sha512
     
     public var length: Int {
         switch self {
-        case .MD5:      return Int(CC_MD5_DIGEST_LENGTH)
-        case .SHA1:     return Int(CC_SHA1_DIGEST_LENGTH)
-        case .SHA224:   return Int(CC_SHA224_DIGEST_LENGTH)
-        case .SHA256:   return Int(CC_SHA256_DIGEST_LENGTH)
-        case .SHA384:   return Int(CC_SHA384_DIGEST_LENGTH)
-        case .SHA512:   return Int(CC_SHA512_DIGEST_LENGTH)
+        case .md5:      return Int(CC_MD5_DIGEST_LENGTH)
+        case .sha1:     return Int(CC_SHA1_DIGEST_LENGTH)
+        case .sha224:   return Int(CC_SHA224_DIGEST_LENGTH)
+        case .sha256:   return Int(CC_SHA256_DIGEST_LENGTH)
+        case .sha384:   return Int(CC_SHA384_DIGEST_LENGTH)
+        case .sha512:   return Int(CC_SHA512_DIGEST_LENGTH)
         }
     }
 }
@@ -41,21 +41,21 @@ extension Hash {
      
      - returns: hash 结果
      */
-    public func array(data: NSData) -> [UInt8] {
-        var hash = [UInt8](count: length, repeatedValue: 0)
+    public func array(_ data: Data) -> [UInt8] {
+        var hash = [UInt8](repeating: 0, count: length)
         switch self {
-        case .MD5:
-            CC_MD5(data.bytes, UInt32(data.length), &hash)
-        case .SHA1:
-            CC_SHA1(data.bytes, UInt32(data.length), &hash)
-        case .SHA224:
-            CC_SHA224(data.bytes, UInt32(data.length), &hash)
-        case .SHA256:
-            CC_SHA256(data.bytes, UInt32(data.length), &hash)
-        case .SHA384:
-            CC_SHA384(data.bytes, UInt32(data.length), &hash)
-        case .SHA512:
-            CC_SHA512(data.bytes, UInt32(data.length), &hash)
+        case .md5:
+            CC_MD5((data as NSData).bytes, UInt32(data.count), &hash)
+        case .sha1:
+            CC_SHA1((data as NSData).bytes, UInt32(data.count), &hash)
+        case .sha224:
+            CC_SHA224((data as NSData).bytes, UInt32(data.count), &hash)
+        case .sha256:
+            CC_SHA256((data as NSData).bytes, UInt32(data.count), &hash)
+        case .sha384:
+            CC_SHA384((data as NSData).bytes, UInt32(data.count), &hash)
+        case .sha512:
+            CC_SHA512((data as NSData).bytes, UInt32(data.count), &hash)
         }
         return hash
     }
@@ -69,7 +69,7 @@ extension Hash {
      
      - returns: hash 字符串
      */
-    public func string(hashArray: [UInt8]) -> String {
+    public func string(_ hashArray: [UInt8]) -> String {
         var string = ""
         for i in 0..<length {
             string += String(format: "%02x", hashArray[Int(i)])
@@ -86,17 +86,17 @@ extension Hash {
      
      - returns: hash 字符串
      */
-    public func string(hashData: NSData) -> String {
+    public func string(_ hashData: Data) -> String {
         return string(array(hashData))
     }
 }
 
-public extension NSData {
+public extension Data {
     
     /**
      计算 NSData 的 hash
      */
-    public func hashString(type: Hash) -> String {
+    public func hashString(_ type: Hash) -> String {
         return type.string(self)
     }
 }
@@ -106,8 +106,8 @@ public extension String {
     /**
      计算 String 的 hash
      */
-    public func hashString(type: Hash) -> String {
-        if let data = dataUsingEncoding(NSASCIIStringEncoding) {
+    public func hashString(_ type: Hash) -> String {
+        if let data = data(using: String.Encoding.ascii) {
             return type.string(data)
         }
         return ""

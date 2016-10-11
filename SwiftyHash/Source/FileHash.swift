@@ -13,43 +13,43 @@ public struct FileHash {
     
     private static let sizeForReadingData: Int = 4096
     
-    public static func hashString(type: Hash, filePath: String) -> String? {
+    public static func hashString(_ type: Hash, filePath: String) -> String? {
         guard let array: Array<UInt8> = hashArray(type, filePath: filePath) else { return nil }
         return type.string(array)
     }
  
-    public static func hashArray(type: Hash, filePath: String) -> Array<UInt8>? {
-        guard NSFileManager.defaultManager().fileExistsAtPath(filePath) else { return nil}
-        let fileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, filePath, .CFURLPOSIXPathStyle, false)
+    public static func hashArray(_ type: Hash, filePath: String) -> Array<UInt8>? {
+        guard FileManager.default.fileExists(atPath: filePath) else { return nil}
+        let fileURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, filePath as CFString!, .cfurlposixPathStyle, false)
         let readStream = CFReadStreamCreateWithFile(kCFAllocatorDefault, fileURL)
         let didSucceed = readStream != nil ? CFReadStreamOpen(readStream) : false
         guard didSucceed else { return nil }
         
-        var digest = Array<UInt8>(count: type.length, repeatedValue: 0)
+        var digest = Array<UInt8>(repeating: 0, count: type.length)
         switch type {
-        case .MD5:
-            if !hashOfFileMD5(&digest, readStream: readStream) { return nil }
-        case .SHA1:
-            if !hashOfFileSHA1(&digest, readStream: readStream) { return nil }
-        case .SHA224:
-            if !hashOfFileSHA224(&digest, readStream: readStream) { return nil }
-        case .SHA256:
-            if !hashOfFileSHA256(&digest, readStream: readStream) { return nil }
-        case .SHA384:
-            if !hashOfFileSHA384(&digest, readStream: readStream) { return nil }
-        case .SHA512:
-            if !hashOfFileSHA512(&digest, readStream: readStream) { return nil }
+        case .md5:
+            if !hashOfFileMD5(&digest, readStream: readStream!) { return nil }
+        case .sha1:
+            if !hashOfFileSHA1(&digest, readStream: readStream!) { return nil }
+        case .sha224:
+            if !hashOfFileSHA224(&digest, readStream: readStream!) { return nil }
+        case .sha256:
+            if !hashOfFileSHA256(&digest, readStream: readStream!) { return nil }
+        case .sha384:
+            if !hashOfFileSHA384(&digest, readStream: readStream!) { return nil }
+        case .sha512:
+            if !hashOfFileSHA512(&digest, readStream: readStream!) { return nil }
         }
         CFReadStreamClose(readStream)
         return digest
     }
     
-    private static func hashOfFileMD5(digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
+    private static func hashOfFileMD5(_ digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
         var hashObject = CC_MD5_CTX()
         CC_MD5_Init(&hashObject)
         var hasMoreData = true
         while hasMoreData {
-            var buffer = Array<UInt8>(count: sizeForReadingData, repeatedValue: 0)
+            var buffer = Array<UInt8>(repeating: 0, count: sizeForReadingData)
             let readBytesCount = CFReadStreamRead(readStream, &buffer, sizeForReadingData)
             if readBytesCount == -1 {
                 break
@@ -64,12 +64,12 @@ public struct FileHash {
         return true
     }
     
-    private static func hashOfFileSHA1(digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
+    private static func hashOfFileSHA1(_ digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
         var hashObject = CC_SHA1_CTX()
         CC_SHA1_Init(&hashObject)
         var hasMoreData = true
         while hasMoreData {
-            var buffer = Array<UInt8>(count: sizeForReadingData, repeatedValue: 0)
+            var buffer = Array<UInt8>(repeating: 0, count: sizeForReadingData)
             let readBytesCount = CFReadStreamRead(readStream, &buffer, sizeForReadingData)
             if readBytesCount == -1 {
                 break
@@ -84,12 +84,12 @@ public struct FileHash {
         return true
     }
     
-    private static func hashOfFileSHA224(digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
+    private static func hashOfFileSHA224(_ digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
         var hashObject = CC_SHA256_CTX() // same context struct is used for SHA224 and SHA256
         CC_SHA224_Init(&hashObject)
         var hasMoreData = true
         while hasMoreData {
-            var buffer = Array<UInt8>(count: sizeForReadingData, repeatedValue: 0)
+            var buffer = Array<UInt8>(repeating: 0, count: sizeForReadingData)
             let readBytesCount = CFReadStreamRead(readStream, &buffer, sizeForReadingData)
             if readBytesCount == -1 {
                 break
@@ -104,12 +104,12 @@ public struct FileHash {
         return true
     }
     
-    private static func hashOfFileSHA256(digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
+    private static func hashOfFileSHA256(_ digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
         var hashObject = CC_SHA256_CTX()
         CC_SHA256_Init(&hashObject)
         var hasMoreData = true
         while hasMoreData {
-            var buffer = Array<UInt8>(count: sizeForReadingData, repeatedValue: 0)
+            var buffer = Array<UInt8>(repeating: 0, count: sizeForReadingData)
             let readBytesCount = CFReadStreamRead(readStream, &buffer, sizeForReadingData)
             if readBytesCount == -1 {
                 break
@@ -124,12 +124,12 @@ public struct FileHash {
         return true
     }
     
-    private static func hashOfFileSHA384(digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
+    private static func hashOfFileSHA384(_ digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
         var hashObject = CC_SHA512_CTX() // same context struct is used for SHA384 and SHA512
         CC_SHA384_Init(&hashObject)
         var hasMoreData = true
         while hasMoreData {
-            var buffer = Array<UInt8>(count: sizeForReadingData, repeatedValue: 0)
+            var buffer = Array<UInt8>(repeating: 0, count: sizeForReadingData)
             let readBytesCount = CFReadStreamRead(readStream, &buffer, sizeForReadingData)
             if readBytesCount == -1 {
                 break
@@ -144,12 +144,12 @@ public struct FileHash {
         return true
     }
     
-    private static func hashOfFileSHA512(digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
+    private static func hashOfFileSHA512(_ digestPointer: UnsafeMutablePointer<UInt8>, readStream: CFReadStream) -> Bool {
         var hashObject = CC_SHA512_CTX()
         CC_SHA512_Init(&hashObject)
         var hasMoreData = true
         while hasMoreData {
-            var buffer = Array<UInt8>(count: sizeForReadingData, repeatedValue: 0)
+            var buffer = Array<UInt8>(repeating: 0, count: sizeForReadingData)
             let readBytesCount = CFReadStreamRead(readStream, &buffer, sizeForReadingData)
             if readBytesCount == -1 {
                 break
