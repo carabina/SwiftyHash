@@ -14,8 +14,8 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/anotheren/SwiftyHash.git",
                      :tag => s.version }
   s.source_files = "Source/*.swift"
-
-  s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(PODS_ROOT)/CommonCrypto' }
-  s.preserve_paths = 'SwiftyHash/CommonCrypto/module.modulemap'
+  s.xcconfig = { 'SWIFT_INCLUDE_PATHS' => '$(PODS_ROOT)/SwiftyHash/CommonCrypto' }
+  s.preserve_paths = "CommonCrypto/module.modulemap"
+  s.public_header_files = "SwiftyHash/SwiftyHash.h"
 
 end
